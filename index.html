@@ -43,13 +43,22 @@
       align-items: center;
       z-index: 100;
       transition: opacity 0.8s ease, visibility 0.8s ease;
+      padding: 1rem;
+      text-align: center;
     }
 
     .heart-icon {
       font-size: 3rem;
       color: var(--accent-pink);
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       animation: pulse 1.5s infinite alternate;
+    }
+
+    .passcode-prompt {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: var(--soft-pink);
+      margin-bottom: 1.5rem;
     }
 
     @keyframes pulse {
@@ -109,7 +118,7 @@
       color: var(--soft-pink);
     }
 
-    /* ---------------- LILY UNLOCK ANIMATION ---------------- */
+    /* ---------------- PINK LILY UNLOCK ANIMATION ---------------- */
     #lily-overlay {
       position: fixed;
       inset: 0;
@@ -145,7 +154,7 @@
       box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
     }
 
-    /* ---------------- MAIN WEBSITE CONTAINER ---------------- */
+    /* ---------------- MAIN CONTAINER ---------------- */
     #main-content {
       width: 100%;
       max-width: 800px;
@@ -158,7 +167,6 @@
       align-items: center;
     }
 
-    /* Section Header */
     .section-title {
       font-family: 'Dancing Script', cursive;
       font-size: 2.8rem;
@@ -167,56 +175,22 @@
       margin-bottom: 1.5rem;
     }
 
-    /* ---------------- PHOTO COLLAGE GRID ---------------- */
-    .collage-section {
+    /* ---------------- BANNER CARD ---------------- */
+    .banner-card {
       width: 100%;
-      background: var(--card-bg);
-      padding: 2rem 1rem;
+      background: linear-gradient(135deg, #421426, #6b1d3a);
+      padding: 3rem 1.5rem;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      position: relative;
+      text-align: center;
+      border: 1px solid rgba(255, 182, 193, 0.2);
     }
 
-    .polaroid-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 15px;
-      position: relative;
-    }
-
-    .polaroid {
-      background: #fff;
-      padding: 10px 10px 25px 10px;
-      border-radius: 4px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transform: rotate(calc(var(--r, 0) * 1deg));
-      transition: transform 0.3s ease;
-    }
-
-    .polaroid:hover {
-      transform: scale(1.05) rotate(0deg);
-      z-index: 5;
-    }
-
-    .polaroid img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 2px;
-    }
-
-    .collage-overlay-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    .banner-card h1 {
       font-family: 'Dancing Script', cursive;
-      font-size: 2.5rem;
-      color: #ffffff;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 15px var(--deep-pink);
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 10;
+      font-size: 3rem;
+      color: var(--soft-pink);
+      text-shadow: 0 0 10px var(--deep-pink);
     }
 
     /* ---------------- LOVE LETTER CARD ---------------- */
@@ -252,6 +226,152 @@
       margin-top: 1.5rem;
     }
 
+    /* ---------------- OPEN ME WHEN LETTERS ---------------- */
+    .open-when-section {
+      width: 100%;
+    }
+
+    .envelopes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .envelope-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 182, 193, 0.3);
+      border-radius: 14px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .envelope-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-pink);
+      background: #521930;
+    }
+
+    .envelope-icon {
+      font-size: 2.2rem;
+    }
+
+    .envelope-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      color: var(--soft-pink);
+    }
+
+    /* MODAL POPUP FOR LETTERS */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+      padding: 1rem;
+    }
+
+    .modal-content {
+      background: #fff5f8;
+      color: #333;
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 550px;
+      width: 100%;
+      border: 2px solid var(--soft-pink);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position: relative;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .modal-content h3 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      color: var(--deep-pink);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .modal-content p {
+      line-height: 1.8;
+      color: #4a2c38;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .close-modal-btn {
+      display: block;
+      margin: 1.5rem auto 0 auto;
+      background: var(--deep-pink);
+      color: white;
+      border: none;
+      padding: 8px 24px;
+      border-radius: 20px;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .close-modal-btn:hover {
+      background: var(--accent-pink);
+    }
+
+    /* ---------------- 365 REASONS SECTION ---------------- */
+    .reasons-section {
+      width: 100%;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 182, 193, 0.2);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .reasons-list {
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .reasons-list::-webkit-scrollbar {
+      width: 8px;
+    }
+    .reasons-list::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+    }
+    .reasons-list::-webkit-scrollbar-thumb {
+      background: var(--accent-pink);
+      border-radius: 10px;
+    }
+
+    .reason-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px 16px;
+      border-radius: 10px;
+      border-left: 3px solid var(--accent-pink);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .reason-num {
+      color: var(--soft-pink);
+      font-weight: 600;
+      margin-right: 6px;
+    }
+
     /* ---------------- SONGS GRID ---------------- */
     .songs-section {
       width: 100%;
@@ -267,7 +387,7 @@
       background: var(--card-bg);
       border: 1px solid rgba(255, 182, 193, 0.2);
       border-radius: 12px;
-      padding: 12px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -305,7 +425,7 @@
       background: #1ed760;
     }
 
-    /* ---------------- CLOSING MESSAGE ---------------- */
+    /* ---------------- CLOSING CARD ---------------- */
     .footer-card {
       width: 100%;
       padding: 3rem 1rem;
@@ -313,8 +433,6 @@
       border-radius: 20px;
       text-align: center;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      position: relative;
-      overflow: hidden;
     }
 
     .footer-card h2 {
@@ -329,6 +447,7 @@
   <!-- PASSCODE LOCK SCREEN -->
   <div id="passcode-screen">
     <div class="heart-icon">🩷</div>
+    <div class="passcode-prompt">enter our secret code my beautiful baby girl</div>
     <div class="pin-dots">
       <div class="dot" id="dot-0"></div>
       <div class="dot" id="dot-1"></div>
@@ -359,25 +478,50 @@
   <!-- MAIN CONTENT -->
   <div id="main-content">
 
-    <!-- PHOTO COLLAGE -->
-    <div class="collage-section">
-      <div class="polaroid-grid">
-        <div class="polaroid" style="--r: -4"><img src="https://picsum.photos/200/200?random=1" alt="Memory 1"></div>
-        <div class="polaroid" style="--r: 3"><img src="https://picsum.photos/200/200?random=2" alt="Memory 2"></div>
-        <div class="polaroid" style="--r: -2"><img src="https://picsum.photos/200/200?random=3" alt="Memory 3"></div>
-        <div class="polaroid" style="--r: 5"><img src="https://picsum.photos/200/200?random=4" alt="Memory 4"></div>
-        <div class="polaroid" style="--r: -3"><img src="https://picsum.photos/200/200?random=5" alt="Memory 5"></div>
-        <div class="polaroid" style="--r: 2"><img src="https://picsum.photos/200/200?random=6" alt="Memory 6"></div>
-      </div>
-      <div class="collage-overlay-text">I love you so much, Mera Dil</div>
+    <!-- HERO BANNER -->
+    <div class="banner-card">
+      <h1>I love you so much, Mera Dil</h1>
     </div>
 
-    <!-- LOVE LETTER -->
+    <!-- MAIN LOVE LETTER -->
     <div class="letter-card">
       <h3>My Dearest Mera Dil,</h3>
       <p>Ever since October 8, 2023, every single day with you has felt warmer and brighter. From our quiet little moments to August 16, 2024—a date I will never forget—you've given me memories I carry everywhere with me.</p>
       <p>I am writing this because words sometimes catch in my throat when I look at you, overwhelmed by how much you mean to me. Please keep this little note as a small token of my love—a love that belongs entirely to you.</p>
       <div class="letter-signature">Forever and always yours,<br>With all my love, Starfishy 🩷</div>
+    </div>
+
+    <!-- OPEN ME WHEN LETTERS -->
+    <div class="open-when-section">
+      <h2 class="section-title">Open When Letters...</h2>
+      <div class="envelopes-grid">
+        <div class="envelope-card" onclick="openLetter(0)">
+          <div class="envelope-icon">✉️</div>
+          <div class="envelope-title">Open when you miss me</div>
+        </div>
+        <div class="envelope-card" onclick="openLetter(1)">
+          <div class="envelope-icon">✉️</div>
+          <div class="envelope-title">Open when you feel sad</div>
+        </div>
+        <div class="envelope-card" onclick="openLetter(2)">
+          <div class="envelope-icon">✉️</div>
+          <div class="envelope-title">Open when you can't sleep</div>
+        </div>
+        <div class="envelope-card" onclick="openLetter(3)">
+          <div class="envelope-icon">✉️</div>
+          <div class="envelope-title">Open when you doubt yourself</div>
+        </div>
+        <div class="envelope-card" onclick="openLetter(4)">
+          <div class="envelope-icon">✉️</div>
+          <div class="envelope-title">Open when you need a hug</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 365 REASONS WHY I LOVE YOU -->
+    <div class="reasons-section">
+      <h2 class="section-title">365 Reasons Why I Love You</h2>
+      <div class="reasons-list" id="reasons-container"></div>
     </div>
 
     <!-- TOP SONGS -->
@@ -393,11 +537,19 @@
 
   </div>
 
+  <!-- LETTER MODAL POPUP -->
+  <div class="modal-overlay" id="letter-modal">
+    <div class="modal-content">
+      <h3 id="modal-title">Letter Title</h3>
+      <div id="modal-body"></div>
+      <button class="close-modal-btn" onclick="closeLetter()">Close Letter 🩷</button>
+    </div>
+  </div>
+
   <script>
     const CORRECT_PIN = "2318";
     let currentInput = "";
 
-    // Spotify Tracks Link Array
     const spotifyLinks = [
       "https://open.spotify.com/track/1bMkimTb47umgNP6xCi4A1",
       "https://open.spotify.com/track/3EgZF4wQA7mHkjfxm9dDl8",
@@ -410,6 +562,371 @@
       "https://open.spotify.com/track/0cYohCh24y1aMjJmcS9RBl",
       "https://open.spotify.com/track/44AyOl4qVkzS48vBsbNXaC"
     ];
+
+    // Open Me When Letters Data
+    const openWhenLetters = [
+      {
+        title: "Open when you miss me 🩷",
+        body: `<p>My sweet baby girl,</p>
+               <p>Whenever distance feels too big or you just miss having me right beside you, remember that distance only means we get to hold each other closer when we're together. Close your eyes for a second, take a deep breath, and picture me holding your hand.</p>
+               <p>I am thinking about you right now at this exact moment, wishing I was giving you the biggest hug. You are never truly alone because you carry my heart with you everywhere you go. I love you endlessly, Mera Dil.</p>
+               <p style="text-align:right; font-family:'Dancing Script'; font-size:1.5rem; color:#d81b60;">- Yours always, Starfishy</p>`
+      },
+      {
+        title: "Open when you feel sad 🌸",
+        body: `<p>Hey beautiful girl,</p>
+               <p>I'm so sorry today feels heavy. I wish I could wrap my arms around you right now and take away every single bad feeling. It’s okay to have tough days, baby, and it’s okay to let yourself feel whatever you’re feeling.</p>
+               <p>Just remember that this dark cloud is temporary. You are so strong, so gentle, and so loved by me. Let me be your safe space today. Rest your mind and remember how deeply you are cherished.</p>
+               <p style="text-align:right; font-family:'Dancing Script'; font-size:1.5rem; color:#d81b60;">- Always here for you, Starfishy</p>`
+      },
+      {
+        title: "Open when you can't sleep 🌙",
+        body: `<p>My sweet Mera Dil,</p>
+               <p>If your mind is racing and rest won't come easy tonight, put down all your worries for a moment. Think about October 8, 2023, think about August 16, 2024, and think about all the quiet, cozy moments we've shared.</p>
+               <p>Close your eyes, play our soundtrack, and know that under the exact same night sky, I am sending you all my love and peace. Sleep softly, my angel.</p>
+               <p style="text-align:right; font-family:'Dancing Script'; font-size:1.5rem; color:#d81b60;">- Goodnight baby girl, Starfishy</p>`
+      },
+      {
+        title: "Open when you doubt yourself 💫",
+        body: `<p>My gorgeous girl,</p>
+               <p>If you are feeling insecure or doubting how amazing you are, I need you to pause and listen to me very carefully. You are easily the most wonderful, kind, and magnificent person in my life.</p>
+               <p>You have a heart of pure gold, and you bring so much joy into my world just by being yourself. Never forget how capability, beauty, and grace radiate from you. I believe in you 1000% even when you find it hard to believe in yourself.</p>
+               <p style="text-align:right; font-family:'Dancing Script'; font-size:1.5rem; color:#d81b60;">- Your biggest fan, Starfishy</p>`
+      },
+      {
+        title: "Open when you need a hug 🤗",
+        body: `<p>My adorable baby girl,</p>
+               <p>Consider this letter a giant, warm, tight hug delivered straight to your heart Wrap your arms around yourself real tight for 5 seconds—that's me hugging you as close as humanly possible.</p>
+               <p>No matter what is going on today, you are my home, my favorite person, and my whole heart. Sending you a million warm hugs right now!</p>
+               <p style="text-align:right; font-family:'Dancing Script'; font-size:1.5rem; color:#d81b60;">- Forever hugging you, Starfishy</p>`
+      }
+    ];
+
+    function openLetter(index) {
+      const letter = openWhenLetters[index];
+      document.getElementById('modal-title').innerText = letter.title;
+      document.getElementById('modal-body').innerHTML = letter.body;
+      document.getElementById('letter-modal').style.display = 'flex';
+    }
+
+    function closeLetter() {
+      document.getElementById('letter-modal').style.display = 'none';
+    }
+
+    // 365 FULL UNIQUE REASONS ARRAY
+    const full365Reasons = [
+      "Your beautiful smile lights up my entire world.",
+      "The warm and gentle sound of your voice.",
+      "How affectionately you call me Starfishy.",
+      "The unforgettable memory of our first kiss on August 16, 2024.",
+      "How starting our journey on October 8, 2023 changed my life forever.",
+      "The way your eyes twinkle whenever you laugh.",
+      "How safe and complete I feel when I talk to you.",
+      "Your kind, gentle, and compassionate heart.",
+      "How you make even the quietest moments feel magical.",
+      "Your adorable giggles that bring an instant smile to my face.",
+      "The way you care so deeply about the people you love.",
+      "How you inspire me every single day to be the best version of myself.",
+      "Your comforting presence whenever I feel stressed or tired.",
+      "The sweet surprise messages you leave for me.",
+      "Because you are my absolute favorite person in the entire world.",
+      "Your unique sense of humor that never fails to make me laugh.",
+      "How cute you look when you get focused.",
+      "The way you listen to me with so much patience and care.",
+      "Because my world is infinitely brighter with you in it.",
+      "How you make every day feel like a special occasion.",
+      "Your gentle touch that calms all my worries away.",
+      "How cute you are when you're sleepy.",
+      "The endless patience and understanding you show me.",
+      "Because you are my ultimate safe space and my home.",
+      "How easily you can turn a bad day into a good one.",
+      "The cute little inside jokes we share together.",
+      "Your unconditional love and endless support.",
+      "How deeply thoughtful you are about everything.",
+      "The way you make my heart beat faster every single day.",
+      "Because you are my soulmate and my best friend.",
+      "The warmth and softness of your hands.",
+      "How adorable you look whenever you get excited.",
+      "Your amazing capability to make everyone around you happy.",
+      "How proud I am to call you mine.",
+      "The way you make every memory we share unforgettable.",
+      "Because you make me feel like the luckiest person alive.",
+      "Your gentle words of encouragement when I need them most.",
+      "How cute your reactions are to small surprises.",
+      "The way you look at me with so much love in your eyes.",
+      "Because your happiness is my single biggest priority.",
+      "How you love pink lilies and sweet gestures.",
+      "The effortless beauty you possess inside and out.",
+      "How you make my heart feel so incredibly full.",
+      "Because nobody else in the world could ever compare to you.",
+      "Your beautiful soul that shines through everything you do.",
+      "The way you make me feel truly cherished and loved.",
+      "How we can talk for hours without ever running out of things to say.",
+      "Your playful spirit that brings out my happiest side.",
+      "Because life is a beautiful adventure whenever I'm with you.",
+      "The cozy feeling of being wrapped up in your love.",
+      "How you always know exactly how to cheer me up.",
+      "Your amazing resilience and strength.",
+      "Because you are the sweetest part of my day.",
+      "The way you remember every tiny detail about us.",
+      "How you always make me feel valued and special.",
+      "Your adorable laughter that fills my heart with warm light.",
+      "Because loving you comes as naturally as breathing.",
+      "The way your presence alone brings me instant peace.",
+      "How sweet you are when you say goodnight.",
+      "Because you are the prettiest girl in the entire universe.",
+      "The way you hold my heart so gently in your hands.",
+      "How you make ordinary routines feel like romantic adventures.",
+      "Your comforting words that fix everything in a second.",
+      "Because you make every dream feel reachable.",
+      "The sparkle of joy in your eyes when you share good news.",
+      "How incredibly lucky I feel to be the one who gets to love you.",
+      "Your adorable habit of checking up on me.",
+      "Because your love is the greatest gift I have ever received.",
+      "The genuine warmth you extend to everyone around you.",
+      "How effortlessly you make me smile at my phone screen.",
+      "Your sweet voice calling me Starfishy.",
+      "Because you make my heart feel completely safe.",
+      "The beautiful future I see whenever I look at you.",
+      "How you make every song sound sweeter when we listen together.",
+      "Your unmatched elegance and grace.",
+      "Because you are the missing piece I never knew I needed.",
+      "How soft and loving your words always are.",
+      "The silly faces and funny moments we laugh about.",
+      "Because you understand me like nobody else ever could.",
+      "The way you make me fall in love with you all over again every day.",
+      "Your incredible kindness that touches everyone.",
+      "How cute you are when you're super focused on something.",
+      "Because you are my absolute dream girl.",
+      "The way you bring out the gentlest side of me.",
+      "How you make hard times feel manageable just by being there.",
+      "Your sweet morning messages that brighten my entire day.",
+      "Because you give the warmest, best feelings in the world.",
+      "How you make my heart skip a beat every time your name pops up.",
+      "Your pure, beautiful, and genuine heart.",
+      "Because you are my forever and my always.",
+      "The way you laugh at my goofy jokes.",
+      "How effortlessly charming you are without even trying.",
+      "Your soft hair and cute style.",
+      "Because you make me feel like I can conquer anything.",
+      "The way you make our love feel so easy and natural.",
+      "How you look out for me in subtle, sweet ways.",
+      "Because being with you feels like home.",
+      "The cute way you express your happiness.",
+      "How deeply you care about our bond.",
+      "Because you are the best thing that has ever happened to me.",
+      "The way you make me smile without saying a word.",
+      "Your comforting presence even across distance.",
+      "How incredibly special August 16, 2024 is to my heart.",
+      "Because October 8, 2023 was the day my real life began.",
+      "The way you make every sunset look more beautiful.",
+      "Your sweet habit of showing love in little details.",
+      "Because you hold the key to my whole heart.",
+      "The soft, gentle way you talk to me.",
+      "How effortlessly you make me a better person.",
+      "Because every day with you is my new favorite day.",
+      "Your radiant positive energy.",
+      "The way you make me feel like the center of your universe.",
+      "Because your happiness is contagious.",
+      "How cute you look when you get sleepy.",
+      "Your incredible capacity for warmth and love.",
+      "Because you are my favorite thought before I go to sleep.",
+      "The way you make my morning light up instantly.",
+      "How genuine and real your emotions are.",
+      "Because you make me feel so deeply appreciated.",
+      "The sweet way you say my name.",
+      "How you turn simple words into beautiful memories.",
+      "Because you are my quiet refuge from the noisy world.",
+      "The way your hand feels perfectly made for mine.",
+      "How you make me laugh harder than anyone else.",
+      "Because you are my answered prayer.",
+      "The sweet enthusiasm you have for things you love.",
+      "How completely you have captured my heart.",
+      "Because you make me feel like the luckiest guy alive.",
+      "The cute way you pout or react.",
+      "How you make me feel safe enough to be 100% myself.",
+      "Because you are my favorite miracle.",
+      "The endless joy you bring into my life.",
+      "How beautifully you complement everything about me.",
+      "Because loving you is the easiest choice I make every day.",
+      "The soft, romantic vibe you bring into my world.",
+      "How you make my worries melt away into nothing.",
+      "Because you make me feel truly understood.",
+      "The cute little nickname Mera Dil.",
+      "How you light up every room you walk into.",
+      "Because your love is my favorite place to be.",
+      "The way you handle challenges with grace.",
+      "How sweet you are when you're taking care of me.",
+      "Because you are the personification of love itself.",
+      "The adorable excitement in your voice.",
+      "How you make me look forward to tomorrow.",
+      "Because you are my favorite view in the world.",
+      "The way you inspire confidence in me.",
+      "How easy it is to adore everything about you.",
+      "Because you give the sweetest affection.",
+      "The beautiful memories we've already built.",
+      "The thousands of amazing memories we've yet to create.",
+      "Because you are my heart's permanent home.",
+      "The cute way you send heart emojis.",
+      "How deeply you touch my heart without trying.",
+      "Because your love makes me feel invincible.",
+      "The warmth that spreads through me when I hear your voice.",
+      "How effortlessly breathtaking you are.",
+      "Because you are my real-life princess.",
+      "The beautiful soundtrack of love we share.",
+      "How you make every holiday and date feel extra special.",
+      "Because you give the best comfort in the world.",
+      "The way you trust me with your heart.",
+      "How precious every moment with you is.",
+      "Because you make my life feel complete.",
+      "The sweet way you support my goals.",
+      "How adorable you are when you're being shy.",
+      "Because you make me feel so deeply loved.",
+      "The cute way you react to my compliments.",
+      "How you make every single song feel like it's about us.",
+      "Because you are my guiding star.",
+      "The gentle and loving touch of your hand.",
+      "How you bring out all the happiness inside me.",
+      "Because you make my world a softer, sweeter place.",
+      "The way you love pink lilies so much.",
+      "How cute you are when you're relaxed and happy.",
+      "Because you hold my entire heart in your palms.",
+      "The beautiful way your mind works.",
+      "How thoughtful you are with your gestures.",
+      "Because being near you is my favorite feeling.",
+      "The sweet peace I feel when I think of you.",
+      "How you make ordinary days feel like fairy tales.",
+      "Because you are the best part of my story.",
+      "The way your presence fills my soul with joy.",
+      "How cute your tiny habits are.",
+      "Because you make every heartbreak of the past make sense.",
+      "The incredible connection we share.",
+      "How you make me feel so grounded and secure.",
+      "Because you are my treasure.",
+      "The way you make my bad moods disappear.",
+      "How adorable you look in everything you wear.",
+      "Because your love is pure magic.",
+      "The gentle way you reassure me.",
+      "How deeply I respect and admire you.",
+      "Because you are my favorite topic to talk about.",
+      "The cute way you express your affection.",
+      "How you make my heart dance with joy.",
+      "Because you are my favorite human being.",
+      "The sweet way you check in on how I'm doing.",
+      "How you make me smile out of nowhere.",
+      "Because you make me feel so incredibly rich in love.",
+      "The soft, gentle beauty of your soul.",
+      "How easily you steal my attention.",
+      "Because you are my daily motivation.",
+      "The way you look when you're smiling genuinely.",
+      "How you make me feel like I belong.",
+      "Because you make all my fears disappear.",
+      "The cute way you hold onto me.",
+      "How you make every conversation so enjoyable.",
+      "Because you are my favorite adventure partner.",
+      "The sweet way you care about small things.",
+      "How you make me feel like the richest man in the world.",
+      "Because you are my shining light in darkness.",
+      "The soft, lovely voice that soothes my soul.",
+      "How you make every accomplishment feel bigger.",
+      "Because you are my dream come true.",
+      "The way you accept me for who I am.",
+      "How cute you are when you're happy-dancing.",
+      "Because your love gives me strength.",
+      "The sweet way you whisper sweet things.",
+      "How you make my world feel secure.",
+      "Because you are my heart's ultimate desire.",
+      "The way you make every second spent together count.",
+      "How adorable your laughter is.",
+      "Because you are my favorite miracle in life.",
+      "The soft warmth of your loving energy.",
+      "How effortlessly cute you are at all times.",
+      "Because you make my life infinitely sweeter.",
+      "The way you hold space for my feelings.",
+      "How you make me feel like I can accomplish anything.",
+      "Because you are my favorite person to dream with.",
+      "The cute way you share your day with me.",
+      "How you make my soul feel completely at rest.",
+      "Because you are my once-in-a-lifetime love.",
+      "The gentle sweetness in your voice when you call me.",
+      "How you make every sunrise look brighter.",
+      "Because you are my absolute everything.",
+      "The way you make my heart overflow with gratitude.",
+      "How cute you look when you're laughing at yourself.",
+      "Because your love feels like home.",
+      "The soft, beautiful aura you carry around you.",
+      "How you make me feel so proud to love you.",
+      "Because you are the brightest part of my day.",
+      "The sweet way you show appreciation.",
+      "How you make every distance feel small.",
+      "Because you hold my heart forever.",
+      "The cute way you get excited about pink things.",
+      "How you make me feel so deeply blessed.",
+      "Because you are my absolute favorite routine.",
+      "The gentle kindness in your heart.",
+      "How you make me want to protect your smile forever.",
+      "Because you are my sweetest thought.",
+      "The way you make my days feel full of purpose.",
+      "How cute you are when you try to hide a smile.",
+      "Because you are my soul’s true home.",
+      "The soft, calming effect you have on me.",
+      "How you make every moment unforgettable.",
+      "Because you are my favorite blessing.",
+      "The way you make my heart melt daily.",
+      "How adorable you are in every single photo.",
+      "Because your love is my daily strength.",
+      "The sweet way you make me feel needed.",
+      "How effortlessly special you make me feel.",
+      "Because you are my dream girl forever.",
+      "The gentle touch that warms my soul.",
+      "How you make every problem feel smaller.",
+      "Because you are my favorite part of reality.",
+      "The cute way you pay attention when I talk.",
+      "How you make me feel so loved without trying.",
+      "Because you are my forever sweetheart.",
+      "The soft sweetness of your heart.",
+      "How you make my life feel like poetry.",
+      "Because you are my sunshine on rainy days.",
+      "The cute way you make little sounds when happy.",
+      "How you make every path look beautiful.",
+      "Because you are my heart’s favorite beat.",
+      "The sweet way you say you love me.",
+      "How you make me feel like I matter.",
+      "Because you are my safe haven.",
+      "The way you make my heart feel so light.",
+      "How adorable your expressions are.",
+      "Because you are my favorite sight.",
+      "The soft, loving words you gift me.",
+      "How you make every moment sweeter.",
+      "Because you are my forever love.",
+      "The cute way you react when you're surprised.",
+      "How you make me feel so complete.",
+      "Because you are my sweetest reality.",
+      "The gentle way you brighten my thoughts.",
+      "How you make every day worth living.",
+      "Because you are my heart’s ultimate joy.",
+      "The cute way you exist in my world.",
+      "How you make me feel like the luckiest guy.",
+      "Because you are my favorite dream.",
+      "The soft love you pour into my life.",
+      "How you make every heartbeat count.",
+      "Because you are my whole wide world.",
+      "The cute way you smile with your eyes.",
+      "How you make my life feel like a fairy tale.",
+      "Because you are my forever Mera Dil.",
+      "The sweet way you are simply YOU.",
+      "Because I will love you endlessly, today, tomorrow, and for all of 365 days every year forever."
+    ];
+
+    function generate365Reasons() {
+      const container = document.getElementById('reasons-container');
+      full365Reasons.forEach((reasonText, idx) => {
+        const item = document.createElement('div');
+        item.className = 'reason-item';
+        item.innerHTML = `<span class="reason-num">#${idx + 1}</span> ${reasonText}`;
+        container.appendChild(item);
+      });
+    }
 
     // Keypad Logic
     function pressKey(num) {
@@ -455,15 +972,9 @@
     // Generate Pink Lily Animation
     function generatePinkLilies() {
       const wreath = document.getElementById('lily-wreath');
-      const pinkShades = [
-        '#ffb6c1', // Light pink
-        '#ff69b4', // Hot pink
-        '#ff1493', // Deep pink
-        '#db7093', // Pale violet red
-        '#e68bbe'  // Soft magenta
-      ];
-
+      const pinkShades = ['#ffb6c1', '#ff69b4', '#ff1493', '#db7093', '#e68bbe'];
       const count = 12;
+
       for (let i = 0; i < count; i++) {
         const petal = document.createElement('div');
         petal.className = 'lily-petal';
@@ -515,6 +1026,7 @@
 
     // Initialize
     generatePinkLilies();
+    generate365Reasons();
     renderSongs();
   </script>
 </body>
