@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Little Something For You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #2b0d18;
+      --card-bg: #421426;
+      --accent-pink: #ff69b4;
+      --soft-pink: #ffb6c1;
+      --deep-pink: #d81b60;
+      --light-bg: #fff0f5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- PASSCODE SCREEN ---------------- */
+    #passcode-screen {
+      position: fixed;
+      inset: 0;
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .heart-icon {
+      font-size: 3rem;
+      color: var(--accent-pink);
+      margin-bottom: 1rem;
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.15); }
+    }
+
+    .pin-dots {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--soft-pink);
+      transition: background-color 0.2s;
+    }
+
+    .dot.filled {
+      background-color: var(--accent-pink);
+      border-color: var(--accent-pink);
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      max-width: 280px;
+    }
+
+    .key {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 182, 193, 0.2);
+      color: #fff;
+      font-size: 1.4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .key:active {
+      transform: scale(0.92);
+      background: rgba(255, 105, 180, 0.3);
+    }
+
+    .key.action {
+      font-size: 1rem;
+      color: var(--soft-pink);
+    }
+
+    /* ---------------- LILY UNLOCK ANIMATION ---------------- */
+    #lily-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .lily-wreath {
+      width: 320px;
+      height: 320px;
+      position: relative;
+      animation: spin 12s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .lily-petal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 100px;
+      border-radius: 50% 50% 50% 50% / 80% 80% 20% 20%;
+      transform-origin: center bottom;
+      opacity: 0.9;
+      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    /* ---------------- MAIN WEBSITE CONTAINER ---------------- */
+    #main-content {
+      width: 100%;
+      max-width: 800px;
+      padding: 2rem 1rem;
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease;
+      flex-direction: column;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    /* Section Header */
+    .section-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.8rem;
+      color: var(--soft-pink);
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ---------------- PHOTO COLLAGE GRID ---------------- */
+    .collage-section {
+      width: 100%;
+      background: var(--card-bg);
+      padding: 2rem 1rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .polaroid-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 15px;
+      position: relative;
+    }
+
+    .polaroid {
+      background: #fff;
+      padding: 10px 10px 25px 10px;
+      border-radius: 4px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transform: rotate(calc(var(--r, 0) * 1deg));
+      transition: transform 0.3s ease;
+    }
+
+    .polaroid:hover {
+      transform: scale(1.05) rotate(0deg);
+      z-index: 5;
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    .collage-overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      color: #ffffff;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 15px var(--deep-pink);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* ---------------- LOVE LETTER CARD ---------------- */
+    .letter-card {
+      background: #fff5f8;
+      color: #333;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+      border: 2px solid var(--soft-pink);
+      text-align: center;
+    }
+
+    .letter-card h3 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.4rem;
+      color: var(--deep-pink);
+      margin-bottom: 1rem;
+    }
+
+    .letter-card p {
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      color: #4a2c38;
+    }
+
+    .letter-signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: var(--deep-pink);
+      margin-top: 1.5rem;
+    }
+
+    /* ---------------- SONGS GRID ---------------- */
+    .songs-section {
+      width: 100%;
+    }
+
+    .songs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .song-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 182, 193, 0.2);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .song-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-pink);
+    }
+
+    .song-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .spotify-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #1db954;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: auto;
+      transition: background 0.2s;
+    }
+
+    .spotify-btn:hover {
+      background: #1ed760;
+    }
+
+    /* ---------------- CLOSING MESSAGE ---------------- */
+    .footer-card {
+      width: 100%;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, #421426, #6b1d3a);
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-card h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.8rem;
+      color: var(--soft-pink);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PASSCODE LOCK SCREEN -->
+  <div id="passcode-screen">
+    <div class="heart-icon">🩷</div>
+    <div class="pin-dots">
+      <div class="dot" id="dot-0"></div>
+      <div class="dot" id="dot-1"></div>
+      <div class="dot" id="dot-2"></div>
+      <div class="dot" id="dot-3"></div>
+    </div>
+    <div class="keypad">
+      <div class="key" onclick="pressKey('1')">1</div>
+      <div class="key" onclick="pressKey('2')">2</div>
+      <div class="key" onclick="pressKey('3')">3</div>
+      <div class="key" onclick="pressKey('4')">4</div>
+      <div class="key" onclick="pressKey('5')">5</div>
+      <div class="key" onclick="pressKey('6')">6</div>
+      <div class="key" onclick="pressKey('7')">7</div>
+      <div class="key" onclick="pressKey('8')">8</div>
+      <div class="key" onclick="pressKey('9')">9</div>
+      <div class="key action" onclick="clearPin()">C</div>
+      <div class="key" onclick="pressKey('0')">0</div>
+      <div class="key action" onclick="deletePin()">⌫</div>
+    </div>
+  </div>
+
+  <!-- PINK LILY BLOOM ANIMATION OVERLAY -->
+  <div id="lily-overlay">
+    <div class="lily-wreath" id="lily-wreath"></div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="main-content">
+
+    <!-- PHOTO COLLAGE -->
+    <div class="collage-section">
+      <div class="polaroid-grid">
+        <div class="polaroid" style="--r: -4"><img src="https://picsum.photos/200/200?random=1" alt="Memory 1"></div>
+        <div class="polaroid" style="--r: 3"><img src="https://picsum.photos/200/200?random=2" alt="Memory 2"></div>
+        <div class="polaroid" style="--r: -2"><img src="https://picsum.photos/200/200?random=3" alt="Memory 3"></div>
+        <div class="polaroid" style="--r: 5"><img src="https://picsum.photos/200/200?random=4" alt="Memory 4"></div>
+        <div class="polaroid" style="--r: -3"><img src="https://picsum.photos/200/200?random=5" alt="Memory 5"></div>
+        <div class="polaroid" style="--r: 2"><img src="https://picsum.photos/200/200?random=6" alt="Memory 6"></div>
+      </div>
+      <div class="collage-overlay-text">I love you so much, Mera Dil</div>
+    </div>
+
+    <!-- LOVE LETTER -->
+    <div class="letter-card">
+      <h3>My Dearest Mera Dil,</h3>
+      <p>Ever since October 8, 2023, every single day with you has felt warmer and brighter. From our quiet little moments to August 16, 2024—a date I will never forget—you've given me memories I carry everywhere with me.</p>
+      <p>I am writing this because words sometimes catch in my throat when I look at you, overwhelmed by how much you mean to me. Please keep this little note as a small token of my love—a love that belongs entirely to you.</p>
+      <div class="letter-signature">Forever and always yours,<br>With all my love, Starfishy 🩷</div>
+    </div>
+
+    <!-- TOP SONGS -->
+    <div class="songs-section">
+      <h2 class="section-title">Our Top Songs<br><span style="font-size: 1.2rem; font-family:'Poppins'; font-weight:300;">The Soundtrack of Us</span></h2>
+      <div class="songs-grid" id="songs-container"></div>
+    </div>
+
+    <!-- FINAL CARD -->
+    <div class="footer-card">
+      <h2>I love you, to the moon and back.</h2>
+    </div>
+
+  </div>
+
+  <script>
+    const CORRECT_PIN = "2318";
+    let currentInput = "";
+
+    // Spotify Tracks Link Array
+    const spotifyLinks = [
+      "https://open.spotify.com/track/1bMkimTb47umgNP6xCi4A1",
+      "https://open.spotify.com/track/3EgZF4wQA7mHkjfxm9dDl8",
+      "https://open.spotify.com/track/6TFESXMfJJWwccviaxGAMa",
+      "https://open.spotify.com/track/5haZbtveqI9v1svcc5IDx6",
+      "https://open.spotify.com/track/3siwsiaEoU4Kuuc9WKMUy5",
+      "https://open.spotify.com/track/3GUSidbQwd7xuvU6AQorRh",
+      "https://open.spotify.com/track/5ThyDv6aRVU8AH4vXQNldF",
+      "https://open.spotify.com/track/0eCajpR75pDW0r64U6hP2x",
+      "https://open.spotify.com/track/0cYohCh24y1aMjJmcS9RBl",
+      "https://open.spotify.com/track/44AyOl4qVkzS48vBsbNXaC"
+    ];
+
+    // Keypad Logic
+    function pressKey(num) {
+      if (currentInput.length < 4) {
+        currentInput += num;
+        updateDots();
+        if (currentInput.length === 4) {
+          setTimeout(checkPin, 200);
+        }
+      }
+    }
+
+    function clearPin() {
+      currentInput = "";
+      updateDots();
+    }
+
+    function deletePin() {
+      currentInput = currentInput.slice(0, -1);
+      updateDots();
+    }
+
+    function updateDots() {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById(`dot-${i}`);
+        if (i < currentInput.length) {
+          dot.classList.add("filled");
+        } else {
+          dot.classList.remove("filled");
+        }
+      }
+    }
+
+    function checkPin() {
+      if (currentInput === CORRECT_PIN) {
+        triggerUnlock();
+      } else {
+        alert("Incorrect PIN. Try again!");
+        clearPin();
+      }
+    }
+
+    // Generate Pink Lily Animation
+    function generatePinkLilies() {
+      const wreath = document.getElementById('lily-wreath');
+      const pinkShades = [
+        '#ffb6c1', // Light pink
+        '#ff69b4', // Hot pink
+        '#ff1493', // Deep pink
+        '#db7093', // Pale violet red
+        '#e68bbe'  // Soft magenta
+      ];
+
+      const count = 12;
+      for (let i = 0; i < count; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'lily-petal';
+        const angle = (360 / count) * i;
+        const color = pinkShades[i % pinkShades.length];
+        petal.style.transform = `translate(-50%, -100%) rotate(${angle}deg) translateY(-40px)`;
+        petal.style.background = `radial-gradient(circle at 50% 100%, ${color}, #ffffff)`;
+        wreath.appendChild(petal);
+      }
+    }
+
+    // Transition Logic
+    function triggerUnlock() {
+      const passcodeScreen = document.getElementById('passcode-screen');
+      const lilyOverlay = document.getElementById('lily-overlay');
+      const mainContent = document.getElementById('main-content');
+
+      passcodeScreen.style.opacity = '0';
+      
+      setTimeout(() => {
+        passcodeScreen.style.visibility = 'hidden';
+        lilyOverlay.style.opacity = '1';
+      }, 500);
+
+      setTimeout(() => {
+        lilyOverlay.style.opacity = '0';
+        mainContent.style.display = 'flex';
+        setTimeout(() => {
+          mainContent.style.opacity = '1';
+        }, 50);
+      }, 2200);
+    }
+
+    // Populate Spotify Grid
+    function renderSongs() {
+      const container = document.getElementById('songs-container');
+      spotifyLinks.forEach((link, idx) => {
+        const card = document.createElement('div');
+        card.className = 'song-card';
+        card.innerHTML = `
+          <div class="song-title"> Track ${idx + 1}</div>
+          <a href="${link}" target="_blank" class="spotify-btn">
+            ▶ Save on Spotify
+          </a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Initialize
+    generatePinkLilies();
+    renderSongs();
+  </script>
+</body>
+</html>
